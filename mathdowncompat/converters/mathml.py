@@ -6,7 +6,7 @@ def initialize_arguments(_):
      pass
 
 
-def convert(_, expr, __, ___):
+def convert(_, expr, __, ___, i):
      """Converts expression into MathML
 
      As of time of writing, MathML is only supported by Firefox and Safari.

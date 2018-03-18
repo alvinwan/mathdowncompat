@@ -25,7 +25,7 @@ def main():
     # math env, converter
     denotations = (
         (outline, image.convert),
-        (inline, mathml.convert))
+        (inline, image.convert))
 
     i = 0
     with open(args.path) as f:
@@ -33,11 +33,11 @@ def main():
         for (pattern, left, right), convert in denotations:
             expr = re.compile(pattern)
             for  match in expr.finditer(content):
-                i += 1
                 old_string = match.group(0)
-                new_string = convert(left, match.group(1), right, args)
+                new_string = convert(left, match.group(1), right, args, i)
                 if old_string not in content:
                     continue
+                i += 1
                 content = content.replace(old_string, new_string)
                 print('[{}] {}'.format(i, old_string))
 

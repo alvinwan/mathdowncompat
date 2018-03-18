@@ -1,6 +1,5 @@
 from sympy import preview
 import os
-count = 0
 
 
 def initialize_arguments(parser):
@@ -10,17 +9,16 @@ def initialize_arguments(parser):
                          default='')
 
 
-def convert(left, expr, right, args):
+def convert(left, expr, right, args, i):
      """Render all images and save on local disk or upload."""
      global count
-     count += 1
 
-     filename = '{}.png'.format(count)
-     markdown = '![{}]({}{})'.format(count, args.image_url_prefix, filename)
+     filename = '{}.png'.format(i)
+     filepath = os.path.join(args.image_assets, filename)
+     markdown = '![{}]({})'.format(i, os.path.join(args.image_url_prefix, filepath))
 
      expr = '{}{}{}'.format(left, expr, right)
-     filename = os.path.join(args.image_assets, '{}.png'.format(count))
      if not os.path.exists(args.image_assets):
          os.makedirs(args.image_assets, exist_ok=True)
-     preview(expr, viewer='file', filename=filename, euler=False)
+     preview(expr, viewer='file', filename=filepath, euler=False)
      return markdown
